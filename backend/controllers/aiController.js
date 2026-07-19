@@ -83,8 +83,7 @@ const generateAIResponse = async (prompt) => {
       const response =
   await ai.models.generateContent({
 
-    model: "gemini-3.5-flash",
-
+     model: "gemini-flash-latest",
     contents: prompt,
 
   });
@@ -206,8 +205,8 @@ Instructions
 
     const response =
       await ai.models.generateContent({
-
-        model: "gemini-3.5-flash",
+model: "gemini-flash-latest",
+        
 
         contents: prompt,
 
@@ -284,17 +283,17 @@ Instructions
     });
 
   } catch (err) {
+  console.error("========== FULL ERROR ==========");
+  console.error(err);
+  console.error("Message:", err.message);
+  console.error("Stack:", err.stack);
+  console.error("================================");
 
   return handleError(
-
     res,
-
     err,
-
     "Failed to start interview"
-
   );
-
 }
 
 };
