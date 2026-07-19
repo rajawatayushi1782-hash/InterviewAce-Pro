@@ -23,6 +23,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "https://frontend-new-rust.vercel.app",
+  "https://frontend-egux36uph-codewithme1.vercel.app",
 ];
 
 app.use(
