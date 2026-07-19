@@ -37,16 +37,26 @@ const signup = async (req, res) => {
       email,
       password: hashedPassword,
     });
-
+     const token = jwt.sign(
+  {
+    id: newUser._id,
+    email: newUser.email,
+  },
+  process.env.JWT_SECRET,
+  {
+    expiresIn: "7d",
+  }
+   );
     res.status(201).json({
-      success: true,
-      message: "Account created successfully.",
-      user: {
-        id: newUser._id,
-        fullName: newUser.fullName,
-        email: newUser.email,
-      },
-    });
+  success: true,
+  message: "Account created successfully.",
+  token,
+  user: {
+    id: newUser._id,
+    fullName: newUser.fullName,
+    email: newUser.email,
+  },
+});
 
   } catch (error) {
     console.error(error);
