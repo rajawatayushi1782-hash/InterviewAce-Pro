@@ -1,4 +1,6 @@
+const authMiddleware = require("../middleware/authMiddleware");
 const express = require("express");
+
 
 const router = express.Router();
 
@@ -14,30 +16,30 @@ const {
 // START INTERVIEW
 // =======================================
 
-router.post("/question", generateQuestion);
+router.post("/question", authMiddleware, generateQuestion);
 
 // =======================================
 // NEXT QUESTION
 // =======================================
 
-router.post("/next-question", nextQuestion);
+router.post("/next-question", authMiddleware, nextQuestion);
 
 // =======================================
 // END INTERVIEW
 // =======================================
 
-router.post("/end-interview", endInterview);   
+router.post("/end-interview", authMiddleware, endInterview);   
 
 // =======================================
 // REPORT INTERVIEW VIOLATION
 // =======================================
 
-router.post("/violation", reportViolation);
+router.post("/violation", authMiddleware, reportViolation);
 // =======================================
 // GET INTERVIEW REPORT
 // =======================================
 
 
-router.get("/report/:interviewId", getReport);
+router.get("/report/:interviewId", authMiddleware, getReport);
 
 module.exports = router;

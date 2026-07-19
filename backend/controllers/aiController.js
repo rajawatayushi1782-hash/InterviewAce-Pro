@@ -215,7 +215,8 @@ Instructions
 
     const interview =
       await Interview.create({
-
+  
+        userId: req.user.id,
         role,
 
         level,
@@ -333,8 +334,10 @@ if (
 
 }
 
-    const interview =
-      await Interview.findById(interviewId);
+    const interview = await Interview.findOne({
+  _id: interviewId,
+  userId: req.user.id,
+});
 
     if (!interview) {
 
@@ -605,8 +608,10 @@ const endInterview = async (req, res) => {
 
     }
 
-    const interview =
-      await Interview.findById(interviewId);
+    const interview = await Interview.findOne({
+  _id: interviewId,
+  userId: req.user.id,
+});
 
     if (!interview) {
 
@@ -893,8 +898,10 @@ const getReport = async (req, res) => {
 
 }
 
-    const interview =
-      await Interview.findById(interviewId);
+   const interview = await Interview.findOne({
+  _id: interviewId,
+  userId: req.user.id,
+});
 
     if (!interview) {
 

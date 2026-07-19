@@ -6,7 +6,9 @@ const {
   deleteInterview,
 } = require("../controllers/historyController");
 
-router.get("/", getHistory);
+const authMiddleware = require("../middleware/authMiddleware");
+
+router.get("/", authMiddleware, getHistory);
 
 router.delete("/:id", deleteInterview);
 

@@ -2,7 +2,9 @@ const Interview = require("../models/Interview");
 
 const getHistory = async (req, res) => {
   try {
-    const interviews = await Interview.find()
+    const interviews = await Interview.find({
+  userId: req.user.id,
+})
       .sort({ createdAt: -1 })
       .select(
         "role company status createdAt analysis.overallScore"
@@ -26,8 +28,17 @@ const getHistory = async (req, res) => {
 const deleteInterview = async (req, res) => {
   try {
 
-    await Interview.findByIdAndDelete(req.params.id);
+    const interview = await Interview.findOneAndDelete({
+  _id: req.params.id,
+  userId: req.user.id,
+});
 
+if (!interview) {
+  return res.status(404).json({
+    success: false,
+    message: "Interview not found",
+  });
+}
     res.json({
       success: true,
       message: "Interview deleted successfully",

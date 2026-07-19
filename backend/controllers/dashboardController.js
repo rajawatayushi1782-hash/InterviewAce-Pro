@@ -4,22 +4,27 @@ const getDashboard = async (req, res) => {
 
   try {
 
-    const totalInterviews = await Interview.countDocuments();
+    const totalInterviews = await Interview.countDocuments({
+  userId: req.user.id,
+});
 
     const completedInterviews =
-      await Interview.countDocuments({
-        status: "completed",
-      });
+  await Interview.countDocuments({
+    userId: req.user.id,
+    status: "completed",
+  });
 
     const ongoingInterviews =
-      await Interview.countDocuments({
-        status: "ongoing",
-      });
+  await Interview.countDocuments({
+    userId: req.user.id,
+    status: "ongoing",
+  });
 
     const interviews =
-      await Interview.find({
-        status: "completed",
-      });
+  await Interview.find({
+    userId: req.user.id,
+    status: "completed",
+  });
 
     let averageScore = 0;
 
@@ -74,10 +79,13 @@ if (interviews.length > 0) {
 
 terminatedInterviews =
   await Interview.countDocuments({
+    userId: req.user.id,
     status: "terminated",
   });
     const recentInterviews =
-      await Interview.find()
+  await Interview.find({
+    userId: req.user.id,
+  })
 
         .sort({ createdAt: -1 })
 
